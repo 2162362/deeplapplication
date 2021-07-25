@@ -8,10 +8,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.deeplapp.R
+import com.example.deeplapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
@@ -25,11 +27,10 @@ class HomeFragment : Fragment() {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        //val textView: TextView = root.findViewById(R.id.text_home)
-        //homeViewModel.text.observe(viewLifecycleOwner, Observer {
-        //    textView.text = it
-        //})
-        val spinnerTranslateFrom : Spinner = root.findViewById(R.id.spinnerTranslateFrom)
+        val binding: FragmentHomeBinding = DataBindingUtil
+            .inflate(layoutInflater, R.layout.fragment_home, viewGroup, false)
+
+        /*val spinnerTranslateFrom : Spinner = root.findViewById(R.id.spinnerTranslateFrom)
         val spinnerTranslateTo : Spinner = root.findViewById(R.id.spinnerTranslateTo)
         homeViewModel.getSourceLanguages().observe(viewLifecycleOwner, Observer { languageList ->
             val adapter = ArrayAdapter(this.requireActivity(), android.R.layout.simple_spinner_dropdown_item, languageList)
@@ -61,7 +62,7 @@ class HomeFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
-        }
+        }*/
         return root
     }
 }
