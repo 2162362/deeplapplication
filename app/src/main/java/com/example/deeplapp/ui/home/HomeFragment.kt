@@ -30,6 +30,8 @@ class HomeFragment : Fragment() {
         val binding: FragmentHomeBinding = DataBindingUtil
             .inflate(layoutInflater, R.layout.fragment_home, container, false)
 
+
+
         /*val spinnerTranslateFrom : Spinner = root.findViewById(R.id.spinnerTranslateFrom)
         val spinnerTranslateTo : Spinner = root.findViewById(R.id.spinnerTranslateTo)
         homeViewModel.getSourceLanguages().observe(viewLifecycleOwner, Observer { languageList ->

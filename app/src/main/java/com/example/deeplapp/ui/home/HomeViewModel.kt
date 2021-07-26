@@ -1,27 +1,30 @@
 package com.example.deeplapp.ui.home
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.deeplapp.models.Language
 import com.example.deeplapp.services.DeeplApiService
+import com.example.deeplapp.services.repositories.DeeplRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
+    deeeplRepository: DeeplRepository,
+) : ViewModel() {
 
     private val service : DeeplApiService = DeeplApiService()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
+    private val languageListSource = MutableLiveData<List<Language>>()
 
-    private val languageListSource: MutableLiveData<List<Language>> by lazy {
-        MutableLiveData<List<Language>>().also {
-            loadLanguages()
+    init {
+        viewModelScope.launch {
+            languageListSource.value = deeeplRepository.getLanguages()
         }
     }
 
@@ -42,7 +45,8 @@ class HomeViewModel : ViewModel() {
         return languageListDest
     }
 
-    private fun loadLanguages() {
+    /*private fun loadLanguages() {
+
         service
             .getService()
             .getLanguages(authKey = "f5d6f0b1-225a-be1d-40a9-ee8f616229ef:fx", languageListing = "source")
@@ -62,7 +66,7 @@ class HomeViewModel : ViewModel() {
                     }
                 }
             })
-    }
+    }*/
 
 
 }
