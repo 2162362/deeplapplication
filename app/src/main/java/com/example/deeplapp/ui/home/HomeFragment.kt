@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val binding: FragmentHomeBinding = DataBindingUtil
-            .inflate(layoutInflater, R.layout.fragment_home, viewGroup, false)
+            .inflate(layoutInflater, R.layout.fragment_home, container, false)
 
         /*val spinnerTranslateFrom : Spinner = root.findViewById(R.id.spinnerTranslateFrom)
         val spinnerTranslateTo : Spinner = root.findViewById(R.id.spinnerTranslateTo)
