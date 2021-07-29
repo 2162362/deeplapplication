@@ -6,8 +6,9 @@ import com.example.deeplapp.models.Language
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class DeeplRepository {
+class DeeplRepository @Inject constructor() {
     private val service : DeeplApiService = DeeplApiService()
 
     suspend fun getLanguages() : List<Language> {
