@@ -9,7 +9,7 @@
 
     <string name="textTranslateFrom">Type to translate</string>
     <string name="labelTranslateFrom">Translate from</string>
-    <string name="textTranslateTo"> </string>
+    <string name="textTranslateTo">Your translation</string>
     <string name="labelTranslateTo">Translate into</string>
 
     <string name="menu_home">Home</string>

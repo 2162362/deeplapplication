@@ -1,6 +1,7 @@
 package com.example.deeplapp.services.repositories
 
 import android.util.Log
+import com.example.deeplapp.BuildConfig
 import com.example.deeplapp.services.DeeplApiService
 import com.example.deeplapp.models.Language
 import retrofit2.Call
@@ -16,7 +17,7 @@ class DeeplRepository @Inject constructor() {
         service
             .getService()
             .getLanguages(
-                authKey = "f5d6f0b1-225a-be1d-40a9-ee8f616229ef:fx",
+                authKey = BuildConfig.DEEPL_API_KEY,
                 languageListing = "source"
             )
             .enqueue(object : Callback<List<Language>> {
