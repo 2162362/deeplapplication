@@ -4,15 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.deeplapp.R
 import com.example.deeplapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,49 +14,24 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    private lateinit var binding: FragmentHomeBinding
+
+    private lateinit var viewModel: HomeViewModel
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
+
+        binding.viewModel = viewModel
+
+        binding.lifecycleOwner = this
 
         return binding.root
-
-
-
-        /*val spinnerTranslateFrom : Spinner = root.findViewById(R.id.spinnerTranslateFrom)
-        val spinnerTranslateTo : Spinner = root.findViewById(R.id.spinnerTranslateTo)
-        homeViewModel.getSourceLanguages().observe(viewLifecycleOwner, Observer { languageList ->
-            val adapter = ArrayAdapter(this.requireActivity(), android.R.layout.simple_spinner_dropdown_item, languageList)
-            spinnerTranslateFrom.adapter = adapter
-        })
-
-        spinnerTranslateFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                var selectedItem = homeViewModel.getSourceLanguages().value?.get(id.toInt())
-                Toast.makeText(activity, selectedItem.toString(), Toast.LENGTH_LONG).show()
-                var sourceList = homeViewModel.getSourceLanguages()
-                val filteredList = sourceList.value?.filterNot { it.Language == selectedItem?.Language}
-                if (filteredList != null) {
-                    homeViewModel.setDestinationLanguages(filteredList)
-                }
-                val adapter = filteredList?.let {
-                    ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item,
-                        it
-                    )
-                }
-                spinnerTranslateTo.adapter = adapter
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }*/
     }
 }

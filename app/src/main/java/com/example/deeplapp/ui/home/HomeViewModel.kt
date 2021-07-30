@@ -13,29 +13,12 @@ class HomeViewModel @Inject constructor(
     deeplRepository: DeeplRepository
 ) : ViewModel() {
 
-    private val languageListSource = MutableLiveData<List<Language>>()
+    private val _languageListSource = MutableLiveData<List<Language>>()
+    val languageListSource: LiveData<List<Language>> get() = _languageListSource
 
     init {
         viewModelScope.launch {
-            languageListSource.value = deeplRepository.getLanguages()
+            _languageListSource.postValue(deeplRepository.getLanguages())
         }
     }
-
-    fun getSourceLanguages(): LiveData<List<Language>>{
-        return languageListSource
-    }
-
-    private val languageListDest: MutableLiveData<List<Language>> by lazy {
-        MutableLiveData<List<Language>>()
-    }
-
-    fun getDestinationLanguages() : LiveData<List<Language>>{
-        return languageListDest
-    }
-
-    fun setDestinationLanguages(newList : List<Language>) : MutableLiveData<List<Language>>{
-        languageListDest.value = newList
-        return languageListDest
-    }
-
 }

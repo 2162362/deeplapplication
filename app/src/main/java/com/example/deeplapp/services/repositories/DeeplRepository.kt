@@ -11,8 +11,8 @@ import javax.inject.Inject
 class DeeplRepository @Inject constructor() {
     private val service : DeeplApiService = DeeplApiService()
 
-    suspend fun getLanguages() : List<Language> {
-        var languageList = listOf<Language>()
+    suspend fun getLanguages() : MutableList<Language> {
+        var languageList = mutableListOf<Language>()
         service
             .getService()
             .getLanguages(
@@ -29,9 +29,8 @@ class DeeplRepository @Inject constructor() {
                     if (!response.isSuccessful){
                         Log.e("RETROFIT_ERROR", response.code().toString())
                     }
-                    val list = response.body()
-                    if (list != null){
-                        languageList = list
+                    response.body()?.forEach {
+                        languageList.add(it)
                     }
                 }
             })
